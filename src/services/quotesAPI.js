@@ -42,8 +42,8 @@ export async function fetchQuotes(type, count){
     default:
         return data.map((q, index) => ({
             id: index,
-            quote: q.text || q.q || q.content || "",
-            by: q.by || q.a || q.author || "",
+            quote: q.text || q.q || q.content || q.quote ||"",
+            by: q.by || q.a || q.author ||"",
         }));
   }
 

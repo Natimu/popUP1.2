@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "popUP",
@@ -10,11 +11,14 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#c9b4ed"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nati04.popUP"
+      "bundleIdentifier": "com.nati04.popUP",
+      "infoPlist": {
+        "UIBackgroundModes": ["fetch"]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -26,6 +30,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": []
   }
 }
