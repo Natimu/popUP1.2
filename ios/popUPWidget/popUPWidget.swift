@@ -172,7 +172,7 @@ struct QuoteProvider: TimelineProvider {
 
     // Available background images in Assets.xcassets
     private let backgrounds = [
-        "bg1", "bg2", "bg3", "bg4", "bg5", "bg6"
+        "bg1", "bg2", "bg3", "bg4", "bg5", "bg6", "bg7"
     ]
 
     func placeholder(in context: Context) -> QuoteEntry {
@@ -281,11 +281,19 @@ struct QuoteWidgetView: View {
             // Text overlay
             VStack(alignment: .leading, spacing: 8) {
               Spacer()
-                Text(entry.quote.quote)
-                    .font(.headline)
-                    .foregroundColor(.black)
-                    .shadow(radius: 2)
-                    .lineLimit(7)
+              ZStack {
+                  // Outline (shadow)
+                  Text(entry.quote.quote)
+                      .font(.headline)
+                      .foregroundColor(.black)
+                      .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 0)
+
+                  // Main text
+                  Text(entry.quote.quote)
+                      .font(.headline)
+                      .foregroundColor(.white)
+              }
+
 
                 if !entry.quote.by.isEmpty {
                     Text("— \(entry.quote.by)")
