@@ -30,7 +30,7 @@ export async function fetchQuotes(type, count){
             {
                 id: q.id ?? index,
                 quote: `${q.text}`,
-                by: `${q.by}`,
+                by: `${q.reference}`,
             }));
     case "MOTIVATION":
         return data.map((q, index) => ({
