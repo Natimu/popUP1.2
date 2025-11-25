@@ -17,14 +17,14 @@ export default function QuoteList({quotes, cardType, onRemoveQuote, onEndReached
         
       return <QuoteLibraryQuoteCard quote={quoteText} by={quoteBy} />
     },
-    [cardType] // Only recreate if absolutely necessary (no deps)
+    [cardType, onRemoveQuote] // Only recreate if absolutely necessary (no deps)
   );
 
     return(
         <FlatList
             style={styles.container}
             data={quotes}
-            keyExtractor={(item, index) => index.id?.toString()||index.toString()}
+            keyExtractor={(item, index) => item.id?.toString() || `quote-${index}`}
             renderItem={renderItem}
             onEndReached={onEndReached}
             onEndReachedThreshold={0.5}

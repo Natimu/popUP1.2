@@ -2,7 +2,7 @@
 import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
 import React, { useState, useContext, useEffect} from "react";
 import { FoldersContext } from "../context/FolderContext";
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Share, Modal, TextInput,FlatList } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Share, Modal, TextInput,FlatList, TouchableWithoutFeedback} from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Speech from "expo-speech";
 
@@ -99,7 +99,12 @@ export default React.memo(function QuoteLibraryQuoteCard({ quote, by, background
             animationType="slide"
             transparent
             onRequestClose={() => setModalVisible(false)} >
+              <TouchableWithoutFeedback onPress={() => {
+                setModalVisible(false);
+                setCreating(false);
+              }}>
               <View style={styles.modalOverlay}>
+                <TouchableWithoutFeedback onPress={() => {}}>
                 <View style={styles.modalContent}>
                   <Text style ={styles.modalTitle}>Save to Folder</Text>
                   {!creating ? (
@@ -170,7 +175,9 @@ export default React.memo(function QuoteLibraryQuoteCard({ quote, by, background
                       <Text style={styles.closeText}>Close</Text>
                     </TouchableOpacity>
                 </View>
+                </TouchableWithoutFeedback>
               </View>
+              </TouchableWithoutFeedback>
             </Modal>
         </View>
       </ImageBackground>

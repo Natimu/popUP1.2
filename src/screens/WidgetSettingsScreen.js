@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet, Button } from "react-native";
+import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet, Button, TouchableWithoutFeedback } from "react-native";
 import { FoldersContext } from "../context/FolderContext";
 import AppHeader from "../components/AppHeader";
 import DurationSlider from "../components/DurationSlider";
@@ -11,10 +11,11 @@ import {
   saveSelectedFolderQuotesForWidget
 } from "../utils/widgetStorage";
 
+
 export default function WidgetSettingsScreen({ navigation }) {
   const { folders } = useContext(FoldersContext);
   const [selectedFolder, setSelectedFolder] = useState(null);
-  const [interval, setInterval] = useState(60);
+  const [interval, setInterval] = useState(1800);
 
   const [showFolders, setShowFolders] = useState(false);
   const [showIntervals, setShowIntervals] = useState(false);
@@ -77,28 +78,35 @@ export default function WidgetSettingsScreen({ navigation }) {
           transparent
           onRequestClose={() => setShowFolders(false)}
         >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <FlatList
-                data={folders}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={styles.item}
-                    onPress={() => {
-                      setSelectedFolder(item.name);
-                      setShowFolders(false);
-                    }}
-                  >
-                    <Text>{item.name}</Text>
+          <TouchableWithoutFeedback onPress={() => {
+              setShowFolders(false);
+            }}>
+              <View style={styles.modalOverlay}>
+                <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+                <View style={styles.modalContent}>
+                  
+                  <FlatList
+                    data={folders}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={styles.item}
+                        onPress={() => {
+                          setSelectedFolder(item.name);
+                          setShowFolders(false);
+                        }}
+                      >
+                        <Text>{item.name}</Text>
+                      </TouchableOpacity>
+                    )}
+                  />
+                  <TouchableOpacity style={styles.closeBtn} onPress={() => setShowFolders(false)}>
+                    <Text style={styles.closeText}>Close</Text>
                   </TouchableOpacity>
-                )}
-              />
-              <TouchableOpacity style={styles.closeBtn} onPress={() => setShowFolders(false)}>
-                <Text style={styles.closeText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+                </View>
+                </TouchableWithoutFeedback>
+              </View>
+              </TouchableWithoutFeedback>
         </Modal>
 
         {/* Interval Selector */}
@@ -107,7 +115,11 @@ export default function WidgetSettingsScreen({ navigation }) {
         </TouchableOpacity>
 
         <Modal visible={showIntervals} animationType="slide" transparent>
+           <TouchableWithoutFeedback onPress={() => {
+              setShowIntervals(false);
+            }}>
           <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
             <View style={styles.modalContent}>
               <View style={{ marginTop: 30 }}>
                 <DurationSlider
@@ -163,7 +175,9 @@ export default function WidgetSettingsScreen({ navigation }) {
                 <Text style={styles.closeText}>Close</Text>
               </TouchableOpacity>
             </View>
+            </TouchableWithoutFeedback>
           </View>
+          </TouchableWithoutFeedback>
         </Modal>
 
         {/* Save Button */}
@@ -201,7 +215,7 @@ const styles = StyleSheet.create({
     height: "50%",
   },
   closeBtn: { alignSelf: "center", marginTop: 12 },
-  closeText: { color: "#555" },
+  closeText: { color: "#555", marginBottom: 10 },
   buttonTimeIntervalOptions: {
     flexDirection: "row",
     justifyContent: "space-between",

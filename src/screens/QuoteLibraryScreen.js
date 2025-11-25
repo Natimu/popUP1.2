@@ -1,10 +1,12 @@
 import React , {useState} from "react";
-import { View, ActivityIndicator, StyleSheet} from "react-native";
+import { View, ActivityIndicator, StyleSheet, Text} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import SideMenu from "../components/SideMenu";
 import AppHeader from "../components/AppHeader";
 import useQuotes from "../hooks/useQuotes";
 import QuoteList from "../components/QuoteLists";
+import { useFocusEffect } from '@react-navigation/native';
+
 
 export default function QuoteLibraryScreen({navigation}){
     const route = useRoute();
@@ -16,8 +18,16 @@ export default function QuoteLibraryScreen({navigation}){
         error,
         fetchNextPage,
         hasNextPage,
-        isFetchingNexPage,
+        isFetchingNextPage,
+        refetch
     } = useQuotes(type);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            refetch();
+        }, [refetch])
+    );
+
 
     const quotes = data ? data.pages.flat() : [];
 
@@ -46,7 +56,7 @@ export default function QuoteLibraryScreen({navigation}){
                 quotes={quotes} 
                 category={type} 
                 onEndReached = {() => hasNextPage &&  fetchNextPage()}
-                loadingMore = {isFetchingNexPage}/>
+                loadingMore = {isFetchingNextPage}/>
 
             <SideMenu
                 visible={menuVisible}
