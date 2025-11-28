@@ -1,5 +1,8 @@
 import {quoteAPI_list} from "../utils/constants";
 import bible_verses from "../data/bible_verses.json";
+import love_quotes from "../data/love_quotes.json";
+import inspirational_quotes from "../data/inspirational.json";
+import truth_quotes from "../data/truth.json"
 
 export async function fetchQuotes(type, count){
     let data;
@@ -15,6 +18,15 @@ export async function fetchQuotes(type, count){
 
     if (type === "BIBLE"){
         data = getRandomSubset(bible_verses, 80);
+    }
+    else if (type === "LOVE"){
+        data = getRandomSubset(love_quotes, 80);
+    }
+    else if (type === "INSPIRATIONAL"){
+        data = getRandomSubset(inspirational_quotes, 80);
+    }
+    else if (type === "TRUTH"){
+        data = getRandomSubset(truth_quotes, 80);
     }
     else{
         const url = quoteAPI_list[type];

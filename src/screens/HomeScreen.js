@@ -13,6 +13,11 @@ export default function HomeScreen({ navigation }) {
     { title: "Wisdom", type: "WISDOM", quote: "Trust in the Lord with all your heart.", background: null },
     { title: "Hope", type: "GENERAL", quote: "With God all things are possible.", background: null },
     { title: "Peace", type: "GENERAL", quote: "Let the peace of Christ rule in your hearts.", background: null },
+    { title: "Inspirational", type: "INSPIRATIONAL", quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+        by: "Mahatma Gandhi", background: null },
+    { title: "Love", type: "LOVE", quote: "Love cannot be reduced to a catalogue of reasons why, and a catalogue of reasons cannot be put together into love. The Luminaries",
+        by: "Eleanor Catton", background: null },
+    { title: "Truth", type: "TRUTH", quote: "Be mindful. Be grateful. Be positive. Be true. Be kind. The Light in the Heart", by: "Roy T. Bennett", background: null }
   ];
 
   return (
@@ -28,6 +33,7 @@ export default function HomeScreen({ navigation }) {
             key={index}
             title={card.title}
             quote={card.quote}
+            by={card.by}
             background={card.background}
             onCustomize={() => 
               navigation.navigate("Quote Library", {type: card.type, title: card.title})
