@@ -3,12 +3,26 @@ import React from "react";
 import { Text, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 
 export default function QuoteCard({ title, quote, by, background, onCustomize }) {
+
+  const categoryBackgrounds = {
+    love: require("../../assets/backgrounds/loveBg.png"),
+    wisdom: require("../../assets/backgrounds/wisdomBg.png"),
+    peace: require("../../assets/backgrounds/peaceBg.png"),
+    bible: require("../../assets/backgrounds/bibleBg.png"),
+    hope: require("../../assets/backgrounds/hopeBg.png"),
+    inspiration: require("../../assets/backgrounds/inspirationBg.png"),
+    default: require("../../assets/backgrounds/defaultBg.png"),
+  };
+  const key = background;
+  const imageSource = categoryBackgrounds[key] || categoryBackgrounds.default;
+
+
   return (
     <TouchableOpacity onPress={onCustomize} style={styles.cardContainer}>
       <ImageBackground
-        source={background ? { uri: background } : null}
-        style={[styles.card, background ? { backgroundColor: "transparent" } : styles.defaultBackground]}
-        imageStyle={{ borderRadius: 16 }}
+        source={imageSource}
+        style={styles.card}
+        imageStyle={styles.image}
       >
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.quote}>"{quote}"</Text>
@@ -50,4 +64,9 @@ const styles = StyleSheet.create({
     color: "#333",
     fontStyle: "italic",
   },
+  image: {
+    borderRadius: 16,
+    resizeMode: "cover",
+    opacity: 0.50, // softer background
+    },
 });

@@ -8,16 +8,16 @@ export default function HomeScreen({ navigation }) {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const cards = [
-    { title: "Bible Verse", type: "BIBLE", quote: "Be still, and know that I am God.", background: null },
-    { title: "Motivational Quote", type: "MOTIVATION", quote: "Faith is taking the first step even when you don’t see the whole staircase.", background: null },
-    { title: "Wisdom", type: "WISDOM", quote: "Trust in the Lord with all your heart.", background: null },
-    { title: "Hope", type: "GENERAL", quote: "With God all things are possible.", background: null },
-    { title: "Peace", type: "GENERAL", quote: "Let the peace of Christ rule in your hearts.", background: null },
+    { title: "Bible Verse", type: "BIBLE", quote: "Be still, and know that I am God.", background: "bible" },
+    { title: "Motivational Quote", type: "MOTIVATION", quote: "Faith is taking the first step even when you don’t see the whole staircase.", background: "motivation" },
+    { title: "Wisdom", type: "WISDOM", quote: "Trust in the Lord with all your heart.", background: "wisdom" },
+    { title: "Hope", type: "GENERAL", quote: "With God all things are possible.", background: "hope" },
+    { title: "Peace", type: "GENERAL", quote: "Let the peace of Christ rule in your hearts.", background: "peace" },
     { title: "Inspirational", type: "INSPIRATIONAL", quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
-        by: "Mahatma Gandhi", background: null },
+        by: "Mahatma Gandhi", type: "inspiration" },
     { title: "Love", type: "LOVE", quote: "Love cannot be reduced to a catalogue of reasons why, and a catalogue of reasons cannot be put together into love. The Luminaries",
-        by: "Eleanor Catton", background: null },
-    { title: "Truth", type: "TRUTH", quote: "Be mindful. Be grateful. Be positive. Be true. Be kind. The Light in the Heart", by: "Roy T. Bennett", background: null }
+        by: "Eleanor Catton", background: "love" },
+    { title: "Truth", type: "TRUTH", quote: "Be mindful. Be grateful. Be positive. Be true. Be kind. The Light in the Heart", by: "Roy T. Bennett", background: "truth" }
   ];
 
   return (
