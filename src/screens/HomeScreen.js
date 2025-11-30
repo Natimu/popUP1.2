@@ -9,7 +9,7 @@ export default function HomeScreen({ navigation }) {
 
   const cards = [
     { title: "Bible Verse", type: "BIBLE", quote: "Be still, and know that I am God.", background: "bible" },
-    { title: "Motivational Quote", type: "MOTIVATION", quote: "Faith is taking the first step even when you don’t see the whole staircase.", background: "motivation" },
+    { title: "Motivational", type: "MOTIVATION", quote: "Faith is taking the first step even when you don’t see the whole staircase.", background: "motivation" },
     { title: "Wisdom", type: "WISDOM", quote: "Trust in the Lord with all your heart.", background: "wisdom" },
     { title: "Hope", type: "GENERAL", quote: "With God all things are possible.", background: "hope" },
     { title: "Peace", type: "GENERAL", quote: "Let the peace of Christ rule in your hearts.", background: "peace" },
@@ -55,7 +55,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F9F7FF",
+    backgroundColor: "#545458ff",
     paddingBottom: 20,
   },
   cardContainer: {

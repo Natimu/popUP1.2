@@ -70,7 +70,7 @@ export default function FavoritesScreen({navigation}){
                             navigation.navigate("Folder Quote Display", {folderId: item.id})
                             }}
                         >
-                        <Feather name={item.name === "Favorites" ? "heart": "folder"} size={18} color={item.name === "Favorites" ? "#e63946": "#555"} />
+                        <Feather name={item.name === "Favorites" ? "heart": "folder"} size={18} color={item.name === "Favorites" ? "#e63946": "#e7e4f1ff"} />
                         <Text style={styles.folderName}>{item.name}</Text>
                         </TouchableOpacity>
                         )}
@@ -89,7 +89,7 @@ export default function FavoritesScreen({navigation}){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F9F7FF",
+        backgroundColor: "#545458ff",
         paddingBottom: 20,
         
     },
@@ -125,5 +125,6 @@ const styles = StyleSheet.create({
 
     folderName: {
         paddingLeft: 10,
+        fontSize: 15,
     }
 })

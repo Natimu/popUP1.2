@@ -1,14 +1,17 @@
-import React, {useState}from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function AppHeader({ headerText, onMenuPress }) {
-  
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>{headerText}</Text>
+      <Text style={styles.logo}>popUP</Text>
+
+      <View style={styles.centerContainer}>
+        <Text style={styles.title}>{headerText}</Text>
+      </View>
+
       <TouchableOpacity onPress={onMenuPress}>
-        <Ionicons name="menu" size={20} color="#333" />
+        <Ionicons name="menu" size={20} color="#e7e4f1ff" />
       </TouchableOpacity>
     </View>
   );
@@ -22,11 +25,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 10,
-    backgroundColor: "#F9F7FF",
+    backgroundColor: "#2c2c2dff",
   },
+
+  centerContainer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    alignItems: "center",
+  },
+
   title: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "#3A2A7C",
+    color: "#e7e4f1ff",
+  },
+
+  logo: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#e7e4f1ff",
   },
 });
+

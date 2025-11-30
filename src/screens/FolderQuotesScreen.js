@@ -40,7 +40,7 @@ export default function FolderQuotesScreen({navigation}){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F9F7FF",
+        backgroundColor: "#545458ff",
         paddingBottom: 20,
     },
     center: {

@@ -45,7 +45,7 @@ export default function QuoteList({quotes, cardType, onRemoveQuote, onEndReached
 const styles = StyleSheet.create({
     container:{
         padding: 20,
-        backgroundColor: "#F9F7FF",
+        backgroundColor: "#545458ff",
         paddingBottom: 2,
     }
 });

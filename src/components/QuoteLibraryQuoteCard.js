@@ -2,7 +2,7 @@
 import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
 import React, { useState, useContext, useEffect} from "react";
 import { FoldersContext } from "../context/FolderContext";
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Share, Modal, TextInput,FlatList, TouchableWithoutFeedback} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Share, Modal, TextInput,FlatList, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView} from "react-native";
 import * as Clipboard from "expo-clipboard";
 import * as Speech from "expo-speech";
 
@@ -98,87 +98,111 @@ export default React.memo(function QuoteLibraryQuoteCard({ quote, by, background
             visible={isModalVisible} 
             animationType="slide"
             transparent
-            onRequestClose={() => setModalVisible(false)} >
+            onRequestClose={() => {
+              setModalVisible(false);
+              setCreating(false);
+              setFolderName("");
+            }}
+          >
+            <KeyboardAvoidingView 
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={{flex: 1}}
+              keyboardVerticalOffset={Platform.OS === 'ios' ? -100 : 20}
+            >
               <TouchableWithoutFeedback onPress={() => {
                 setModalVisible(false);
                 setCreating(false);
+                setFolderName("");
               }}>
-              <View style={styles.modalOverlay}>
-                <TouchableWithoutFeedback onPress={() => {}}>
-                <View style={styles.modalContent}>
-                  <Text style ={styles.modalTitle}>Save to Folder</Text>
-                  {!creating ? (
-                      <>
-                        {folders.length > 0 ? (
-                          <FlatList
-                            data={folders}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={({ item }) => (
-                              <TouchableOpacity
-                                style={styles.folderItem}
-                                onPress={() => {
-                                  addQuoteToFolder(item.name, {quote, by});
-                                  setModalVisible(false);}}
-                              >
-                                <Feather name={item.name === "Favorites" ? "heart": "folder"} size={18} color= {item.name === "Favorites" ? "#e63946": "#555" }/>
-                                <Text style={styles.folderName}>{item.name}</Text>
-                              </TouchableOpacity>
+                <View style={styles.modalOverlay}>
+                  <TouchableWithoutFeedback onPress={() => {}}>
+                    <View style={styles.modalContent}>
+                      <ScrollView 
+                        keyboardShouldPersistTaps="handled"
+                        showsVerticalScrollIndicator={false}
+                      >
+                        <Text style={styles.modalTitle}>Save to Folder</Text>
+                        {!creating ? (
+                          <>
+                            {folders.length > 0 ? (
+                              <View style={{maxHeight: 200}}>
+                                <FlatList
+                                  data={folders}
+                                  keyExtractor={(item) => item.id.toString()}
+                                  nestedScrollEnabled
+                                  renderItem={({ item }) => (
+                                    <TouchableOpacity
+                                      style={styles.folderItem}
+                                      onPress={() => {
+                                        addQuoteToFolder(item.name, {quote, by});
+                                        setModalVisible(false);
+                                        setCreating(false);
+                                      }}
+                                    >
+                                      <Feather name="folder" size={18} color="#555" />
+                                      <Text style={styles.folderName}>{item.name}</Text>
+                                    </TouchableOpacity>
+                                  )}
+                                />
+                              </View>
+                            ) : (
+                              <Text style={styles.emptyText}>
+                                No folders yet — create one below.
+                              </Text>
                             )}
-                          />
+
+                            <TouchableOpacity
+                              style={styles.createNewBtn}
+                              onPress={() => setTimeout(() => setCreating(true), 100)}
+                            >
+                              <Ionicons name="add-circle-outline" size={18} color="#333" />
+                              <Text style={styles.createNewText}>Create New Folder</Text>
+                            </TouchableOpacity>
+                          </>
                         ) : (
-                          <Text style={styles.emptyText}>
-                            No folders yet — create one below.
-                          </Text>
+                          <View style={{paddingBottom: 20}}>
+                            <TextInput
+                              value={folderName}
+                              onChangeText={setFolderName}
+                              placeholder="Enter folder name..."
+                              style={styles.input}
+                              autoFocus
+                              returnKeyType="done"
+                              onSubmitEditing={createFolder}
+                            />
+                            <TouchableOpacity style={styles.saveBtn} onPress={createFolder}>
+                              <Text style={styles.saveBtnText}>Save Folder</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                              style={styles.cancelBtn}
+                              onPress={() => {
+                                setCreating(false);
+                                setFolderName("");
+                              }}
+                            >
+                              <Text style={styles.cancelBtnText}>Cancel</Text>
+                            </TouchableOpacity>
+                          </View>
                         )}
 
                         <TouchableOpacity
-                          style={styles.createNewBtn}
-                          onPress={() => setCreating(true)}
-                        >
-                          <Ionicons name="add-circle-outline" size={18} color="#333" />
-                          <Text style={styles.createNewText}>Create New Folder</Text>
-                        </TouchableOpacity>
-                      </>
-                    ) : (
-                      <View>
-                        <TextInput
-                          value={folderName}
-                          onChangeText={setFolderName}
-                          placeholder="Enter folder name..."
-                          style={styles.input}
-                        />
-                        <TouchableOpacity style={styles.saveBtn} onPress={createFolder}>
-                          <Text style={styles.saveBtnText}>Save Folder</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                          style={styles.cancelBtn}
+                          style={styles.closeBtn}
                           onPress={() => {
+                            setModalVisible(false);
                             setCreating(false);
-                          } 
-                          }
+                            setFolderName("");
+                          }}
                         >
-                          <Text style={styles.cancelBtnText}>Cancel</Text>
+                          <Text style={styles.closeText}>Close</Text>
                         </TouchableOpacity>
-                      </View>
-                      
-                    )}
-
-                    <TouchableOpacity
-                      style={styles.closeBtn}
-                      onPress={() => {
-                        setModalVisible(false);
-                        setCreating(false);
-                      }  
-                      }
-                    >
-                      <Text style={styles.closeText}>Close</Text>
-                    </TouchableOpacity>
+                      </ScrollView>
+                    </View>
+                  </TouchableWithoutFeedback>
                 </View>
-                </TouchableWithoutFeedback>
-              </View>
               </TouchableWithoutFeedback>
-            </Modal>
+            </KeyboardAvoidingView>
+          </Modal>
         </View>
       </ImageBackground>
     </TouchableOpacity>

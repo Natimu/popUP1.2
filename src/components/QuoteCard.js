@@ -11,6 +11,8 @@ export default function QuoteCard({ title, quote, by, background, onCustomize })
     bible: require("../../assets/backgrounds/bibleBg.png"),
     hope: require("../../assets/backgrounds/hopeBg.png"),
     inspiration: require("../../assets/backgrounds/inspirationBg.png"),
+    truth: require("../../assets/backgrounds/truthBg.png"),
+    motivation: require("../../assets/backgrounds/motivationalBg.png"),
     default: require("../../assets/backgrounds/defaultBg.png"),
   };
   const key = background;
@@ -67,6 +69,6 @@ const styles = StyleSheet.create({
   image: {
     borderRadius: 16,
     resizeMode: "cover",
-    opacity: 0.50, // softer background
+    opacity: 0.20, // softer background
     },
 });
