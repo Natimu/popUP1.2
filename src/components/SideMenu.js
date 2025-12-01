@@ -46,7 +46,7 @@ export default function SideMenu({ visible, onClose, navigation }) {
 
           
             <TouchableOpacity style={styles.menuList} onPress={() => handelNavigate("Home")}>
-                <Ionicons name="home" size={20} color={"black"}/>
+                <Ionicons name="home" size={20} color={"#282729ff"}/>
                 <Text style={styles.menuItem}>Home</Text>
             </TouchableOpacity>
             
@@ -56,17 +56,17 @@ export default function SideMenu({ visible, onClose, navigation }) {
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.menuList} onPress={() => handelNavigate("Widget Display")}>
-                <MaterialIcons name="settings-display" size={20} color={"#111415ff"}/>
+                <MaterialIcons name="settings-display" size={20} color={"#282729ff"}/>
               <Text style={styles.menuItem}>Widget Display</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.menuList} onPress={() => handelNavigate("Widget Settings")}>
-                <Ionicons name="settings-outline" size={20} color={"#111415ff"}/>
+                <Ionicons name="settings-outline" size={20} color={"#282729ff"}/>
               <Text style={styles.menuItem}>Widget Settings</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.menuList} onPress={() => handelNavigate("VerseSource")}>
-                <SimpleLineIcons name="question" size={20} color={"#111415ff"}/>
+                <SimpleLineIcons name="question" size={20} color={"#282729ff"}/>
               <Text style={styles.menuItem}>About</Text>
             </TouchableOpacity>
           </View>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: "100%",
     width: "50%",
-    backgroundColor: "#FFF",
+    backgroundColor: "#dfdfedff",
     elevation: 5,
     shadowColor: "#000",
     shadowOpacity: 0.15,
@@ -124,6 +124,6 @@ const styles = StyleSheet.create({
   menuItem: {
     fontSize: 18,
     paddingVertical: 12,
-    color: "#333",
+    color: "#282729ff",
   }
 });

@@ -53,6 +53,7 @@ export default React.memo(function QuoteLibraryQuoteCard({ quote, by, background
       language: "en-US",
     })
   };
+  
 
   return (
     <TouchableOpacity onPress={onCustomize} style={styles.cardContainer}>
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   defaultBackground: {
-    backgroundColor: "#EAEAEA",
+    backgroundColor: "rgba(234, 234, 234, 0.99)",
   },
   quote: {
     fontSize: 17,

@@ -269,7 +269,7 @@ struct QuoteWidgetView: View {
                     Rectangle()
                         .fill(
                             LinearGradient(
-                                gradient: Gradient(colors: [Color.black.opacity(0.4), Color.clear]),
+                                gradient: Gradient(colors: [Color.black.opacity(0.01), Color.clear]),
                                 startPoint: .bottom,
                                 endPoint: .top
                             )
