@@ -19,22 +19,22 @@ export async function fetchQuotes(type, count){
     }
 
     if (type === "BIBLE"){
-        data = getRandomSubset(bible_verses, 80);
+        data = getRandomSubset(bible_verses,50);
     }
     else if (type === "LOVE"){
-        data = getRandomSubset(love_quotes, 80);
+        data = getRandomSubset(love_quotes, 50);
     }
     else if (type === "INSPIRATIONAL"){
-        data = getRandomSubset(inspirational_quotes, 80);
+        data = getRandomSubset(inspirational_quotes, 50);
     }
     else if (type === "TRUTH"){
-        data = getRandomSubset(truth_quotes, 80);
+        data = getRandomSubset(truth_quotes, 50);
     }
     else if (type === "HOPE"){
-        data = getRandomSubset(hope_quotes, 80);
+        data = getRandomSubset(hope_quotes, 50);
     }
     else if (type === "PEACE"){
-        data = getRandomSubset(peace_quotes, 80);
+        data = getRandomSubset(peace_quotes, 50);
     }
     else{
         const url = quoteAPI_list[type];

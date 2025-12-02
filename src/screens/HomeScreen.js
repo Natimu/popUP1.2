@@ -13,8 +13,8 @@ export default function HomeScreen({ navigation }) {
     { title: "Wisdom", type: "WISDOM", quote: "Trust in the Lord with all your heart.", background: "wisdom" },
     { title: "Hope", type: "HOPE", quote: "With God all things are possible.", background: "hope" },
     { title: "Peace", type: "PEACE", quote: "Let the peace of Christ rule in your hearts.", background: "peace" },
-    { title: "Inspirational", type: "INSPIRATI", quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
-        by: "Mahatma Gandhi", type: "inspiration" },
+    { title: "Inspirational", type: "INSPIRATIONAL", quote: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+        by: "Mahatma Gandhi", background: "inspiration" },
     { title: "Love", type: "LOVE", quote: "Love cannot be reduced to a catalogue of reasons why, and a catalogue of reasons cannot be put together into love. The Luminaries",
         by: "Eleanor Catton", background: "love" },
     { title: "Truth", type: "TRUTH", quote: "Be mindful. Be grateful. Be positive. Be true. Be kind. The Light in the Heart", by: "Roy T. Bennett", background: "truth" }
