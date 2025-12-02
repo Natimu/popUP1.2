@@ -11,7 +11,7 @@ export default function AppHeader({ headerText, onMenuPress }) {
       </View>
 
       <TouchableOpacity onPress={onMenuPress}>
-        <Ionicons name="menu" size={20} color="#e7e4f1ff" />
+        <Ionicons name="menu" size={25} color="#e7e4f1ff" />
       </TouchableOpacity>
     </View>
   );
