@@ -50,6 +50,7 @@ export default function FavoritesScreen({navigation}){
                     <Animated.View style={{opacity: fadeAnimation}}>
                         <Feather name="x-circle" 
                                 color="#888" 
+                                size={18}
                                 onPress={() => {
                                     setSearchQuery(""); 
                                     }
@@ -70,7 +71,7 @@ export default function FavoritesScreen({navigation}){
                             navigation.navigate("Folder Quote Display", {folderId: item.id})
                             }}
                         >
-                        <Feather name={item.name === "Favorites" ? "heart": "folder"} size={18} color={item.name === "Favorites" ? "#e63946": "#e7e4f1ff"} />
+                        <Feather name={item.name === "Favorites" ? "heart": "folder"} size={20} color={item.name === "Favorites" ? "#e63946": "#e7e4f1ff"} />
                         <Text style={styles.folderName}>{item.name}</Text>
                         </TouchableOpacity>
                         )}
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginTop: 10,
         marginBottom: 10,
-        fontSize: 16,
+        fontSize: 26,
         color: "#333",
         borderWidth: 1,
         borderColor: "#ddd",
@@ -124,7 +125,8 @@ const styles = StyleSheet.create({
     },
 
     folderName: {
+        color: "#e7e4f1ff",
         paddingLeft: 10,
-        fontSize: 15,
+        fontSize: 20,
     }
 })

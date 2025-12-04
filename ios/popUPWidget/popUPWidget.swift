@@ -28,6 +28,30 @@ struct QuoteEntry: TimelineEntry {
     let background: String     // image name
 }
 
+extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 6: // RGB
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (255, 0, 0, 0)
+        }
+        self.init(
+            .sRGB,
+            red: Double(r) / 255,
+            green: Double(g) / 255,
+            blue:  Double(b) / 255,
+            opacity: Double(a) / 255
+        )
+    }
+}
+
 // MARK: - Provider
 
 struct QuoteProvider: TimelineProvider {
@@ -129,7 +153,7 @@ struct QuoteProvider: TimelineProvider {
           Quote(quote: "For God did not send his Son into the world to condemn the world, but to save the world through him. ", by: "John 3:17"),
           Quote(quote: "The angel answered, \"The Holy Spirit will come on you, and the power of the Most High will overshadow you. So the holy one to be born will be called the Son of God.\" ", by: "Luke 1:35"),
           Quote(quote: "God blessed them and said to them, \"Be fruitful and increase in number; fill the earth and subdue it. Rule over the fish in the sea and the birds in the sky and over every living creature that moves on the ground.\" ", by: "Genesis 1:28"),
-          Quote(quote: "For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do. ", by: "Ephesians 2:10"),
+          Quote(quote: "For we are God's hand work, created in Christ Jesus to do good works, which God prepared in advance for us to do. ", by: "Ephesians 2:10"),
           Quote(quote: "God made him who had no sin to be sin for us, so that in him we might become the righteousness of God. ", by: "2 Corinthians 5:21"),
           Quote(quote: "What shall we say, then? Shall we go on sinning so that grace may increase? ", by: "Romans 6:1"),
           Quote(quote: "And you also were included in Christ when you heard the word of truth, the gospel of your salvation. When you believed, you were marked in him with a seal, the promised Holy Spirit ", by: "Ephesians 1:13"),
@@ -235,7 +259,7 @@ struct QuoteProvider: TimelineProvider {
               }
           }
 
-          // Static fallback refresh every 30 minutes
+          // Static fallback refresh every 2 minutes
           return 120
     }
 
@@ -260,23 +284,19 @@ struct QuoteWidgetView: View {
 
     var body: some View {
         ZStack {
-            // Background image
-            Image(entry.background)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .overlay(
-                    Rectangle()
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.black.opacity(0.01), Color.clear]),
-                                startPoint: .bottom,
-                                endPoint: .top
-                            )
-                        )
-                )
-                .clipped()
-                .ignoresSafeArea()
+          // Plain color background
+              Color(hex: "#222624")
+                  .overlay(
+                      Rectangle()
+                          .fill(
+                              LinearGradient(
+                                  gradient: Gradient(colors: [Color.black.opacity(0.01), Color.clear]),
+                                  startPoint: .bottom,
+                                  endPoint: .top
+                              )
+                          )
+                  )
+                  .ignoresSafeArea()
 
 
             // Text overlay
@@ -286,7 +306,7 @@ struct QuoteWidgetView: View {
                   // Outline (shadow)
                   Text(entry.quote.quote)
                       .font(.headline)
-                      .foregroundColor(.black)
+                      .foregroundColor(Color(hex: "#fafaf7"))
                       .lineLimit(7)
                       .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 0)
                 
@@ -305,12 +325,12 @@ struct QuoteWidgetView: View {
                     // Outline (shadow)
                     Text(" \(entry.quote.by)")
                       .font(.footnote)
-                      .foregroundColor(.white)
+                      .foregroundColor(Color(hex: "#fafaf7"))
                       .shadow(color: .black.opacity(0.8), radius: 2, x: 0, y: 0)
                     
                     Text(" \(entry.quote.by)")
                       .font(.footnote)
-                      .foregroundColor(.black.opacity(0.85))
+                      .foregroundColor(.white.opacity(0.85))
                       .shadow(radius: 2)
                   }
                 }
@@ -319,7 +339,6 @@ struct QuoteWidgetView: View {
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .edgesIgnoringSafeArea(.all)
         .containerBackground(.clear, for: .widget)  // iOS 17/18 requirement
     }
 }
@@ -337,6 +356,7 @@ struct popUPWidget: Widget {
             QuoteWidgetView(entry: entry)
                 .containerBackground(.clear, for: .widget)
         }
+        .contentMarginsDisabled()
         .supportedFamilies([.systemMedium])
         .configurationDisplayName("Daily Quote")
         .description("Shows rotating quotes from your selected folder.")
