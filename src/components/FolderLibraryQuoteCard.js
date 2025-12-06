@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     padding: 20,
     height: "50%",
   },
-  modalTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 12 },
+  modalTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 12, textAlign: "center"},
   folderItem: { flexDirection: "row", alignItems: "center", marginBottom: 10 },
   folderName: { marginLeft: 8, fontSize: 16, color: "#333" },
   emptyText: { textAlign: "center", color: "#777", marginTop: 20 },

@@ -1,5 +1,5 @@
 import React , {useState, useContext, useRef, useEffect} from "react";
-import { View, FlatList, StyleSheet, TouchableOpacity, Text, TextInput, Animated, Keyboard} from "react-native";
+import { View, FlatList, StyleSheet, TouchableOpacity, Text, Modal, TextInput, Animated, KeyboardAvoidingView, TouchableWithoutFeedback,ScrollView, Platform} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import SideMenu from "../components/SideMenu";
 import { FoldersContext } from "../context/FolderContext";
@@ -8,10 +8,13 @@ import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
 
 
 
+
 export default function FavoritesScreen({navigation}){
     const route = useRoute();
     const [menuVisible, setMenuVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false)
     const {folders} = useContext(FoldersContext);
+    const [folderName, setFolderName] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const fadeAnimation = useRef(new Animated.Value(0)).current;
 
@@ -70,6 +73,9 @@ export default function FavoritesScreen({navigation}){
                         onPress={() => {
                             navigation.navigate("Folder Quote Display", {folderId: item.id})
                             }}
+                        onLongPress={() => {setModalVisible(true);
+
+                        }}
                         >
                         <Feather name={item.name === "Favorites" ? "heart": "folder"} size={20} color={item.name === "Favorites" ? "#e63946": "#e7e4f1ff"} />
                         <Text style={styles.folderName}>{item.name}</Text>
@@ -83,6 +89,63 @@ export default function FavoritesScreen({navigation}){
                     onClose={() => setMenuVisible(false)}
                     navigation={navigation}
                 />
+
+            <Modal
+                visible={isModalVisible}
+                animationType="slide"
+                transparent
+                onRequestClose={() => {
+                    setModalVisible(false);
+                }}
+                >
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS ==='ios' ? 'padding' : 'height'}
+                        style={{flex: 1}}
+                        keyboardVerticalOffset={Platform.OS === 'ios' ? -1:20}
+                    >
+                        <TouchableWithoutFeedback onPress={() => 
+                            setModalVisible(false)
+                        }>
+                            <View style={styles.modalOverlay}>
+                                <TouchableWithoutFeedback onPress={() => {}}>
+                                    <View style={styles.modalContent}>
+                                        <ScrollView
+                                            keyboardShouldPersistTaps="handled"
+                                            showsVerticalScrollIndicator={false}>
+                                                <Text style={styles.modalTitle}>Manage Folder</Text>
+                                                <View style={{paddingBottom: 20}}>
+                                                    <Text>Change Folder Name</Text>
+                                                    <TextInput
+                                                        value={folderName}
+                                                        onChangeText={setFolderName}
+                                                        placeholder="Enter folder name..."
+                                                        style={styles.input}
+                                                        autoFocus
+                                                        returnKeyType="done"
+                                                        
+                                                    />
+                                                    <TouchableOpacity style={styles.saveBtn} onPress={() => {}}>
+                                                        <Text style={styles.saveBtnText}>Save Folder</Text>
+                                                    </TouchableOpacity>
+                        
+                                                    <TouchableOpacity
+                                                        style={styles.cancelBtn}
+                                                        onPress={() => {
+                                                        }}
+                                                    >
+                                                        <Text style={styles.cancelBtnText}>Cancel</Text>
+                                                    </TouchableOpacity>
+                                                    </View>
+
+                                            
+                                        </ScrollView>
+                                    </View>
+
+                                </TouchableWithoutFeedback>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </KeyboardAvoidingView>
+                </Modal>
     </View>
     )
 }
@@ -118,7 +181,6 @@ const styles = StyleSheet.create({
         flex: 1,
 
     },
-
     folderItem: {
         paddingBottom: 10,
         flexDirection: "row",
@@ -128,5 +190,23 @@ const styles = StyleSheet.create({
         color: "#e7e4f1ff",
         paddingLeft: 10,
         fontSize: 20,
-    }
+    },
+     modalOverlay: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    },
+    modalContent: {
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20,
+        height: "50%",
+    },
+    modalTitle: { 
+        fontSize: 18, 
+        fontWeight: "bold", 
+        marginBottom: 12,
+        textAlign: "center"
+     },
 })
